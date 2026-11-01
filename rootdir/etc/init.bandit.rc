@@ -14,3 +14,8 @@ on late-fs
     start configstore-hal-1-0
     start gralloc-2-0
     mount_all /vendor/etc/fstab.bandit --late
+
+on boot
+    # zram swap (fstab.bandit), LZ4 is cheaper than LZO on one Krait core
+    write /sys/block/zram0/comp_algorithm lz4
+    swapon_all /vendor/etc/fstab.bandit

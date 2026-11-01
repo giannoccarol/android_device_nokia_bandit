@@ -15,4 +15,7 @@
 /dev/block/platform/msm_sdcc.1/by-name/recovery     /recovery       emmc    defaults                                                        defaults
 /dev/block/platform/msm_sdcc.1/by-name/misc         /misc           emmc    defaults                                                        defaults
 
+# Compressed swap in RAM (zram, LZ4): 512 MB, about a third of the usable RAM
+/dev/block/zram0                                    none            swap    defaults                                                        zramsize=536870912,max_comp_streams=1
+
 /devices/msm_sdcc.2/mmc_host*                       auto            auto    defaults                                                        voldmanaged=sdcard1:auto,encryptable=userdata
