@@ -3,6 +3,9 @@
 # Display: no Qualcomm content adaptive backlight
 ro.qualcomm.cabl=0
 
+# Factory reset protection (persistent partition of the installer layout)
+ro.frp.pst=/dev/block/platform/msm_sdcc.1/by-name/persistent
+
 # Radio: Qualcomm QMI RIL from the generic MSM8974 blobs
 rild.libpath=/system/vendor/lib/libril-qc-qmi-1.so
 vendor.rild.libpath=/system/vendor/lib/libril-qc-qmi-1.so
