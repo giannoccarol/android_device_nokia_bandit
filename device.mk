@@ -161,6 +161,10 @@ else
 PRODUCT_PACKAGES += \
     gralloc.msm8974 \
     hwcomposer.msm8974
+
+# Adreno 330 blobs: libEGL_adreno / libGLESv*_adreno in vendor/lib/egl
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.hardware.egl=adreno
 endif
 
 # GPS: no GNSS HAL yet. The legacy service crash-loops (the Qualcomm
