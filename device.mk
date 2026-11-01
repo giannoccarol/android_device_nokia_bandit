@@ -126,6 +126,11 @@ PRODUCT_PACKAGES += \
 #    hwcomposer.msm8974 must not be installed, or the composer would pick it
 #    and fail on the missing MDSS driver.
 #
+#  mdss (bring-up of the MDSS panel driver):
+#    MDSS display HAL (gralloc.msm8974, hwcomposer.msm8974: frames are
+#    kicked off to the command mode panel through MDSS) with OpenGL ES from
+#    SwiftShader, to test the display without the GPU.
+#
 #  qcom:
 #    MDSS display HAL and Adreno 330 GPU blobs, once the panel driver,
 #    KGSL and OCMEM work.
@@ -141,25 +146,34 @@ PRODUCT_PACKAGES += \
     memtrack.msm8974 \
     liboverlay
 
-ifeq ($(TARGET_BANDIT_GRAPHICS),software)
-# Window and transition animations off by default (first boot / new data)
+ifneq ($(filter software mdss,$(TARGET_BANDIT_GRAPHICS)),)
+# Rendering in software: window and transition animations off by default
+# (first boot / new data); OpenGL ES from SwiftShader
 DEVICE_PACKAGE_OVERLAYS := $(LOCAL_PATH)/overlay-software $(DEVICE_PACKAGE_OVERLAYS)
 
 PRODUCT_PACKAGES += \
-    gralloc.default \
     libEGL_swiftshader \
     libGLESv1_CM_swiftshader \
     libGLESv2_swiftshader
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.hardware.egl=swiftshader \
-    ro.hardware.gralloc=default \
     ro.zygote.disable_gl_preload=true
+endif
+
+ifeq ($(TARGET_BANDIT_GRAPHICS),software)
+PRODUCT_PACKAGES += \
+    gralloc.default
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.hardware.gralloc=default
 else
 PRODUCT_PACKAGES += \
     gralloc.msm8974 \
     hwcomposer.msm8974
+endif
 
+ifeq ($(TARGET_BANDIT_GRAPHICS),qcom)
 # Adreno 330 blobs: libEGL_adreno / libGLESv*_adreno in vendor/lib/egl
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.hardware.egl=adreno
