@@ -7,8 +7,10 @@
 # Power settings for the Lumia 1520, from device/oppo/msm8974-common
 # init.qcom.power.rc. The Windows Phone TrustZone has no power collapse and
 # resets the SoC when secondary cores are started through SCM, so this file
-# never enables msm_pm power collapse modes, never onlines cpu1-3 and never
-# starts mpdecision (the kernel restricts itself to WFI on one core).
+# never enables msm_pm power collapse modes, never touches cpu1-3 online
+# state and never starts mpdecision. The kernel starts cores 1-3 at boot
+# through the UEFI parking protocol, refuses CPU hotplug and idles in WFI;
+# their clocks stay as the firmware set them.
 
 on early-init
     write /sys/block/mmcblk0/bdi/read_ahead_kb 512
