@@ -131,6 +131,11 @@ on post-fs-data
     # The phone's own Wi-Fi NV and MAC addresses from /persist, if provisioned
     exec - root root -- /vendor/bin/init.bandit.wifi.sh
 
+    # Load the Pronto firmware: the WCNSS driver starts it when
+    # /dev/wcnss_wlan is opened (wcnss_service, built without QMI, would do
+    # it later too). After the NV bind above, before the Wi-Fi HAL starts.
+    write /dev/wcnss_wlan 1
+
     # Create directories for Location services
     mkdir /data/misc/location 0770 gps gps
     mkdir /data/misc/location/mq 0770 gps gps
