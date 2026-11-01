@@ -3,8 +3,11 @@
 # Display: no Qualcomm content adaptive backlight
 ro.qualcomm.cabl=0
 
-# Factory reset protection (persistent partition of the installer layout)
-ro.frp.pst=/dev/block/platform/msm_sdcc.1/by-name/persistent
+# Factory reset protection is off during bring-up: with the 68 MB persistent
+# partition of the installer layout, PersistentDataBlockService hashes the
+# whole partition at boot and times out on one core (10 s). Re-enable with
+# ro.frp.pst=/dev/block/platform/msm_sdcc.1/by-name/persistent once it is
+# smaller or SMP works.
 
 # Radio: Qualcomm QMI RIL from the generic MSM8974 blobs
 rild.libpath=/system/vendor/lib/libril-qc-qmi-1.so
