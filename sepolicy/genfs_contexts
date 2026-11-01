@@ -1,0 +1,5 @@
+# PMIC power supplies (qpnp-bms: fuel gauge, qpnp-charger: battery/dc,
+# msm_otg: usb), read by healthd/charger and the health HAL
+genfscon sysfs /devices/qpnp-bms-10/power_supply        u:object_r:sysfs_batteryinfo:s0
+genfscon sysfs /devices/qpnp-charger-14/power_supply    u:object_r:sysfs_batteryinfo:s0
+genfscon sysfs /devices/msm_otg/power_supply            u:object_r:sysfs_batteryinfo:s0
