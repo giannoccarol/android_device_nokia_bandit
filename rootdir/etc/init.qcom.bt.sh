@@ -74,7 +74,19 @@ case $LE_POWER_CLASS in
      logi "LE Power Class: To override, Before turning BT ON; setprop qcom.bt.le_dev_pwr_class <1 or 2 or 3>";;
 esac
 
-eval $(/system/vendor/bin/hci_qcomm_init -e $PWR_CLASS $LE_PWR_CLASS && echo "exit_code_hci_qcomm_init=0" || echo "exit_code_hci_qcomm_init=1")
+# Lumia 1520: the BD address is not in the modem NV but in the Windows DPP
+# partition (QCOM/BT.PROVISION); the installer provisions it as
+# /persist/bdaddr.txt ("AA:BB:CC:DD:EE:FF"). Pass it to hci_qcomm_init.
+BD_ADDR=""
+if [ -r /persist/bdaddr.txt ]; then
+  addr=`cat /persist/bdaddr.txt | tr -d ' \r\n'`
+  if echo "$addr" | grep -qE '^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$'; then
+    BD_ADDR="-b `echo $addr | tr ':' '.'`"
+    logi "BD address from /persist/bdaddr.txt"
+  fi
+fi
+
+eval $(/system/vendor/bin/hci_qcomm_init -e $PWR_CLASS $LE_PWR_CLASS $BD_ADDR && echo "exit_code_hci_qcomm_init=0" || echo "exit_code_hci_qcomm_init=1")
 
 case $exit_code_hci_qcomm_init in
   0) logi "Bluetooth QSoC firmware download succeeded, $BTS_DEVICE $BTS_TYPE $BTS_BAUD $BTS_ADDRESS";;
