@@ -158,15 +158,16 @@ on fs
 
     mount none /system/etc/gps.conf /system/etc/gps_debug.conf bind
 
-# Bring-up: rmt_storage, adsprpcd and loc_launcher exit right away on the
-# 1520 for now and init restarts them in a loop on the only core. They are
-# disabled until the modem, FastRPC and location stacks work (start them
-# by hand with "start <name>" to debug).
+# rmt_storage serves the modem EFS partitions (modemst1/2, fsg, fsc); it
+# needs the oem_data UIO of the bandit device tree.
 service rmt_storage /system/vendor/bin/rmt_storage
     class core
     user root
     group system wakelock
-    disabled
+
+# Bring-up: adsprpcd and loc_launcher exit right away on the 1520 for now
+# and init restarts them in a loop on the only core. They are disabled
+# until FastRPC and the location stack work ("start <name>" to debug).
 
 service rfs_access /system/vendor/bin/rfs_access
     class core
