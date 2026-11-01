@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2026 The LineageOS Project
+
+     SPDX-License-Identifier: Apache-2.0
+-->
+<!-- Bluetooth is off until WCNSS (Pronto) boots: the HAL aborts in
+     BluetoothHci::close and com.android.bluetooth crashes over the setup
+     wizard. Without the feature, SystemServer does not start Bluetooth. -->
+<permissions>
+    <unavailable-feature name="android.hardware.bluetooth" />
+    <unavailable-feature name="android.hardware.bluetooth_le" />
+</permissions>
