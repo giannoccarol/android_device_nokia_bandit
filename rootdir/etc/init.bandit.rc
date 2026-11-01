@@ -1,0 +1,16 @@
+# Nokia Lumia 1520 (bandit)
+
+import /vendor/etc/init/hw/init.qcom-common.rc
+
+on fs
+    mount_all /vendor/etc/fstab.bandit --early
+    start hwservicemanager
+
+on late-fs
+    start hwservicemanager
+    start servicemanager
+    start surfaceflinger
+    start bootanim
+    start configstore-hal-1-0
+    start gralloc-2-0
+    mount_all /vendor/etc/fstab.bandit --late

@@ -1,0 +1,16 @@
+//
+// Copyright (C) 2026 The LineageOS Project
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
+cc_library_static {
+    name: "libinit_bandit",
+    recovery_available: true,
+    srcs: ["init_bandit.cpp"],
+    include_dirs: [
+        "device/oppo/msm8974-common/init",
+        "system/core/base/include",
+        "system/core/init",
+    ]
+}

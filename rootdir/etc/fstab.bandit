@@ -1,0 +1,16 @@
+# Nokia Lumia 1520 (bandit) - provisional fstab.
+# Android partitions do not exist on the stock Windows Phone GPT: they are
+# created inside the space of Data (as on the Lumia 950 XL port). Names below
+# are the planned ones; the modem/persist sources are still to be decided
+# (Windows keeps them in DPP, MODEM_FS1/2, MODEM_FSG and PLAT).
+
+#<src>                                              <mnt_point>     <type>  <mnt_flags and options>                                         <fs_mgr_flags>
+/dev/block/platform/msm_sdcc.1/by-name/userdata     /data           ext4    noatime,nosuid,nodev,barrier=1,data=ordered,noauto_da_alloc,errors=panic wait,check,formattable,latemount
+/dev/block/platform/msm_sdcc.1/by-name/cache        /cache          ext4    noatime,nosuid,nodev,barrier=1,data=ordered,noauto_da_alloc,errors=panic wait,check,formattable
+/dev/block/platform/msm_sdcc.1/by-name/persist      /persist        ext4    nosuid,nodev,barrier=1,data=ordered,nodelalloc,errors=panic wait,check,notrim
+/dev/block/platform/msm_sdcc.1/by-name/boot         /boot           emmc    defaults                                                        defaults
+/dev/block/platform/msm_sdcc.1/by-name/recovery     /recovery       emmc    defaults                                                        defaults
+/dev/block/platform/msm_sdcc.1/by-name/misc         /misc           emmc    defaults                                                        defaults
+/dev/block/platform/msm_sdcc.1/by-name/modem        /firmware       vfat    ro,shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337,context=u:object_r:firmware_file:s0 wait
+
+/devices/msm_sdcc.2/mmc_host*                       auto            auto    defaults                                                        voldmanaged=sdcard1:auto,encryptable=userdata
