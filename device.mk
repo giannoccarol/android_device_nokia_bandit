@@ -216,10 +216,9 @@ PRODUCT_PACKAGES += \
 # LiveDisplay: colour calibration through the MDSS PCC (fb0/rgb, created by
 # mdss_livedisplay). The simple-framebuffer of the software mode has none.
 ifneq ($(TARGET_BANDIT_GRAPHICS),software)
+# (manifest fragment: DEVICE_MANIFEST_FILE in BoardConfig.mk)
 PRODUCT_PACKAGES += \
     vendor.lineage.livedisplay@2.0-service-sysfs
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/vintf/livedisplay.xml:$(TARGET_COPY_OUT_VENDOR)/etc/vintf/manifest/livedisplay.xml
 endif
 
 # Media profile

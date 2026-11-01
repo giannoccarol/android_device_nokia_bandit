@@ -120,6 +120,11 @@ TARGET_USES_ION := true
 
 # HIDL
 DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
+# LiveDisplay (MDSS PCC) is not built in the software graphics mode
+# (TARGET_BANDIT_GRAPHICS=software from the environment, see device.mk)
+ifneq ($(TARGET_BANDIT_GRAPHICS),software)
+DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/configs/vintf/livedisplay.xml
+endif
 
 # Init
 TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_bandit
