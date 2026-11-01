@@ -1,0 +1,14 @@
+//
+// Copyright (C) 2026 The LineageOS Project
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
+// From device/oppo/msm8974-common/libshims: the Qualcomm RIL blob
+// (libril-qc-qmi-1.so) still calls AudioSystem::setErrorCallback.
+cc_library_shared {
+    name: "libaudioclient_shim",
+    srcs: ["libaudioclient_shim.cpp"],
+    shared_libs: ["libaudioclient"],
+    vendor: true,
+}

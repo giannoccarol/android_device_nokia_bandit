@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2026 The LineageOS Project
+
+     SPDX-License-Identifier: Apache-2.0
+-->
+<!-- Lumia 1520 values that replace the Oppo ones of msm8974-common. -->
+<resources>
+    <!-- No flip cover sensor -->
+    <bool name="config_lidControlsSleep">false</bool>
+
+    <!-- No double tap to wake (Oppo touch panel feature) -->
+    <bool name="config_supportDoubleTapWake">false</bool>
+
+    <!-- No notification LED -->
+    <bool name="config_intrusiveNotificationLed">false</bool>
+
+    <!-- On-screen navigation: the capacitive keys are not mapped yet -->
+    <bool name="config_showNavigationBar">true</bool>
+</resources>

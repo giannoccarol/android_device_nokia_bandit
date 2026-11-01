@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2026 The LineageOS Project
+
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <!-- No hardware keys handled by Lineage yet (Oppo had home/back/menu/app switch) -->
+    <integer name="config_deviceHardwareKeys">0</integer>
+
+    <!-- No button backlight control -->
+    <integer name="config_deviceSupportsButtonBrightnessControl">0</integer>
+
+    <!-- No Oppo ConfigPanel / touchscreen gesture key handlers -->
+    <string-array name="config_deviceKeyHandlerLibs" translatable="false" />
+    <string-array name="config_deviceKeyHandlerClasses" translatable="false" />
+</resources>

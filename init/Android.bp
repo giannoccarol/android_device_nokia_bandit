@@ -9,8 +9,8 @@ cc_library_static {
     recovery_available: true,
     srcs: ["init_bandit.cpp"],
     include_dirs: [
-        "device/oppo/msm8974-common/init",
         "system/core/base/include",
         "system/core/init",
-    ]
+    ],
+    static_libs: ["libbase"],
 }

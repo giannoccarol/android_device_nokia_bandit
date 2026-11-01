@@ -1,6 +1,6 @@
 # Nokia Lumia 1520 (bandit)
 
-import /vendor/etc/init/hw/init.qcom-common.rc
+import /vendor/etc/init/hw/init.bandit.qcom.rc
 
 on fs
     mount_all /vendor/etc/fstab.bandit --early

@@ -1,6 +1,6 @@
 # Device tree for the Nokia Lumia 1520 (bandit) — LineageOS 18.1
 
-**Status: bring-up skeleton. Not built, not booted.**
+**Status: bring-up. Builds; never booted.**
 
 | | |
 |---|---|
@@ -38,8 +38,22 @@ kernels use on MSM8974:
 
 ## Layout
 
-- `BoardConfig.mk`, `device.mk`: inherit LineageOS `device/oppo/msm8974-common`
-  for now; Oppo-specific parts will be replaced.
+- `BoardConfig.mk`, `device.mk`: own board and product configuration. They
+  no longer inherit `device/oppo/msm8974-common`; they only reuse its generic
+  MSM8974 files (Wi-Fi/audio/media/GPS configuration, overlay, sepolicy).
+  Left out on purpose: NFC, Oppo touch gestures HAL, Oppo LED HAL and
+  libinit, ConfigPanel, Oppo recovery updater and the Oppo TrustZone
+  assertion in the OTA package.
+- `init/`: vendor init (`libinit_bandit`), `liblight/`: backlight-only
+  lights HAL, `libshims/`: `libaudioclient_shim` for the Qualcomm RIL blob.
+- `rootdir/`: `init.bandit.rc`, `init.bandit.qcom.rc` and `ueventd.bandit.rc`
+  (from msm8974-common without the Oppo pieces), `init.bandit.power.rc`
+  (never enables power collapse, never onlines cpu1-3, no mpdecision).
+- `overlay/`: values that replace the Oppo ones (no lid, no double tap, no
+  LED, no hardware keys, on-screen navigation bar).
+- Files of the 1520 itself (firmware, Wi-Fi config, audio calibration) are
+  taken from your own phone by `vendor/nokia/bandit/extract-local.sh` and are
+  never committed; see the vendor README.
 - Kernel: [giannoccarol/android_kernel_nokia_msm8974](https://github.com/giannoccarol/android_kernel_nokia_msm8974),
   branch `lineage-18.1-bandit`.
 - Vendor: [giannoccarol/android_vendor_nokia_bandit](https://github.com/giannoccarol/android_vendor_nokia_bandit).
