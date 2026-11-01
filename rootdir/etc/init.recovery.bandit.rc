@@ -1,9 +1,12 @@
 # Recovery init for the Nokia Lumia 1520 (bandit), imported by the recovery
 # init.rc as /init.recovery.${ro.hardware}.rc.
 #
-# Kernel 3.4 FunctionFS has no AIO: adbd must use blocking I/O, as the
-# Android system does in init.bandit.power.rc. Without this the recovery
-# adbd brings up the USB interface but never answers the host.
+# Kernel 3.4 FunctionFS has no AIO: adbd must use the legacy FunctionFS
+# code with blocking reads and writes, as the Android system does in
+# init.bandit.power.rc. nonblocking_ffs=0 alone is not enough: without
+# aio_compat the legacy code still uses AIO, the first read fails and adbd
+# rewrites the descriptors every second ("read descriptors" in dmesg).
 on init
+    setprop sys.usb.ffs.aio_compat 1
     setprop persist.adb.nonblocking_ffs 0
     setprop ro.adb.nonblocking_ffs 0
