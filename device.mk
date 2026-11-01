@@ -141,6 +141,9 @@ PRODUCT_PACKAGES += \
     liboverlay
 
 ifeq ($(TARGET_BANDIT_GRAPHICS),software)
+# Window and transition animations off by default (first boot / new data)
+DEVICE_PACKAGE_OVERLAYS := $(LOCAL_PATH)/overlay-software $(DEVICE_PACKAGE_OVERLAYS)
+
 PRODUCT_PACKAGES += \
     gralloc.default \
     libEGL_swiftshader \
