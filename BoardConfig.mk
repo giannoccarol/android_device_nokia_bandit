@@ -148,6 +148,20 @@ BOARD_USES_QCOM_HARDWARE := true
 
 # Recovery
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.recovery
+# The UEFI framebuffer (simple-framebuffer) is a8r8g8b8 and cannot blank
+TARGET_RECOVERY_PIXEL_FORMAT := BGRA_8888
+
+# TWRP (built from a twrp-11 manifest with WITH_TWRP=true)
+ifeq ($(WITH_TWRP),true)
+TARGET_RECOVERY_DEVICE_DIRS += $(DEVICE_PATH)/twrp
+RECOVERY_SDCARD_ON_DATA := true
+TW_THEME := portrait_hdpi
+TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
+TW_MAX_BRIGHTNESS := 255
+TW_NO_SCREEN_BLANK := true
+TW_EXTRA_LANGUAGES := true
+TW_INCLUDE_CRYPTO := false
+endif
 
 # SELinux (permissive from the command line during bring-up)
 include device/qcom/sepolicy-legacy/sepolicy.mk
