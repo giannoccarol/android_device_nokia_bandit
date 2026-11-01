@@ -85,10 +85,6 @@ PRODUCT_PACKAGES += \
     charger_res_images
 WITH_LINEAGE_CHARGER := false
 
-# CryptfsHW
-PRODUCT_PACKAGES += \
-    vendor.qti.hardware.cryptfshw@1.0-service-qti.qsee
-
 # Data
 PRODUCT_PACKAGES += \
     librmnetctl
@@ -141,7 +137,8 @@ PRODUCT_ENFORCE_VINTF_MANIFEST_OVERRIDE := true
 PRODUCT_COPY_FILES += \
     $(MSM8974_COMMON_PATH)/configs/sec_config:$(TARGET_COPY_OUT_VENDOR)/etc/sec_config
 
-# Keymaster
+# Keymaster: no keystore.msm8974 module (it would need a QSEE app), so the
+# 3.0 service runs its software implementation.
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@3.0-impl \
     android.hardware.keymaster@3.0-service
