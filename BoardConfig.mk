@@ -41,12 +41,15 @@ TARGET_CPU_VARIANT_RUNTIME := krait
 # TrustZone resets the SoC on SCM SMP bring-up and has no power collapse:
 # the kernel handles it (msm_tz_restricted), single core until the UEFI
 # parking backend is ported.
+# No kernel console on the panel: Android draws on the same framebuffer, so
+# fbcon is mapped to a framebuffer that does not exist (fbcon=map:9) and no
+# console=tty0; the log stays in dmesg, ramoops and adb.
 BOARD_KERNEL_IMAGE_NAME := zImage-dtb
 BOARD_KERNEL_SEPARATED_DT := false
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_CMDLINE := androidboot.hardware=bandit androidboot.bootdevice=msm_sdcc.1 \
     msm_tz_restricted=1 nosmp maxcpus=1 \
-    console=tty0 fbcon=font:SUN12x22 androidboot.selinux=permissive
+    fbcon=map:9 androidboot.selinux=permissive
 # lk1st loads the kernel at 0x10008000, ramdisk at 0x14000000, tags at
 # 0x13e00000 (it ignores the header, these keep the image consistent);
 # the kernel runs with PHYS_OFFSET 0x10000000.
