@@ -295,9 +295,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.0-service.basic
 
-# Vibrator: none until a driver exists (no timed_output/vibrator on the
-# 1520). A declared but failing vibrator HAL blocks system_server in
-# VibratorService.vibratorInit until the watchdog kills it.
+# Vibrator: PM8941 vibration motor (timed_output/vibrator, kernel
+# qcom,vibrator@c000), driven by vibrator.default through the 1.0 HAL.
+# The HAL must only be declared while that device exists: a failing
+# vibrator HAL blocks system_server in VibratorService.vibratorInit.
+PRODUCT_PACKAGES += \
+    android.hardware.vibrator@1.0-impl \
+    android.hardware.vibrator@1.0-service
 
 # VNDK
 PRODUCT_COPY_FILES += \
