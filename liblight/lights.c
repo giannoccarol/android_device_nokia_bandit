@@ -5,8 +5,9 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  *
- * Lights HAL for the Nokia Lumia 1520: LCD backlight only, through the
- * lcd-backlight LED class device created by the MDSS panel driver.
+ * Lights HAL for the Nokia Lumia 1520: LCD backlight only. It uses the
+ * lcd-backlight LED class device created by the MDSS panel driver and, while
+ * MDSS is off, the PM8941 WLED directly (wled:backlight, 0..max_brightness).
  * Derived from the CAF/LineageOS msm8974 liblight.
  */
 
@@ -27,6 +28,24 @@
 static pthread_mutex_t g_lock = PTHREAD_MUTEX_INITIALIZER;
 
 static const char LCD_FILE[] = "/sys/class/leds/lcd-backlight/brightness";
+static const char WLED_FILE[] = "/sys/class/leds/wled:backlight/brightness";
+static const char WLED_MAX_FILE[] = "/sys/class/leds/wled:backlight/max_brightness";
+
+static int read_int(const char *path, int def)
+{
+    char buffer[16];
+    int fd, n;
+
+    fd = open(path, O_RDONLY);
+    if (fd < 0)
+        return def;
+    n = read(fd, buffer, sizeof(buffer) - 1);
+    close(fd);
+    if (n <= 0)
+        return def;
+    buffer[n] = '\0';
+    return atoi(buffer);
+}
 
 static int write_int(const char *path, int value)
 {
@@ -65,8 +84,16 @@ static int set_light_backlight(struct light_device_t *dev,
     if (!dev)
         return -1;
 
+    int brightness = rgb_to_brightness(state);
+
     pthread_mutex_lock(&g_lock);
-    err = write_int(LCD_FILE, rgb_to_brightness(state));
+    if (access(LCD_FILE, W_OK) == 0) {
+        err = write_int(LCD_FILE, brightness);
+    } else {
+        /* Scale 0..255 to the WLED range (4095 on the PM8941) */
+        int max = read_int(WLED_MAX_FILE, 255);
+        err = write_int(WLED_FILE, brightness * max / 255);
+    }
     pthread_mutex_unlock(&g_lock);
     return err;
 }
