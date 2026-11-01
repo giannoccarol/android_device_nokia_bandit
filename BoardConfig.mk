@@ -13,11 +13,15 @@ TARGET_OTA_ASSERT_DEVICE := bandit,RM-937,RM-938,RM-939,RM-940
 
 # Kernel
 # Boot chain: Nokia UEFI -> bootmgr -> BootShim -> lk1st (lk2nd) -> boot.img.
-# The Windows Phone TrustZone resets the SoC on SCM SMP bring-up and on
-# power collapse: single core and no deep idle until the UEFI parking
-# backend is ported (see README).
+# lk1st picks the single DTB appended to zImage-dtb. The Windows Phone
+# TrustZone resets the SoC on SCM SMP bring-up and has no power collapse:
+# the kernel handles it (msm_tz_restricted), single core until the UEFI
+# parking backend is ported.
+BOARD_KERNEL_IMAGE_NAME := zImage-dtb
+BOARD_KERNEL_SEPARATED_DT := false
 BOARD_KERNEL_CMDLINE := androidboot.hardware=bandit androidboot.bootdevice=msm_sdcc.1 \
-    console=tty0 maxcpus=1 nosmp androidboot.selinux=permissive
+    msm_tz_restricted=1 nosmp maxcpus=1 \
+    console=tty0 fbcon=font:SUN12x22 androidboot.selinux=permissive
 TARGET_KERNEL_SOURCE := kernel/nokia/msm8974
 TARGET_KERNEL_CONFIG := lineage_bandit_defconfig
 
