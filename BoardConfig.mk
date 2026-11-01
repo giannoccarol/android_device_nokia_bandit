@@ -46,6 +46,6 @@ BOARD_ROOT_EXTRA_FOLDERS := firmware persist
 SOONG_CONFIG_OPPO_MSM8974_INIT_DEVICE_LIB := //$(DEVICE_PATH):libinit_bandit
 
 # Recovery
-TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.bandit
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.recovery
 
 -include vendor/nokia/bandit/BoardConfigVendor.mk
