@@ -191,8 +191,11 @@ BOARD_HOSTAPD_DRIVER             := NL80211
 BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_qcwcn
 PRODUCT_VENDOR_MOVE_ENABLED      := true
 TARGET_DISABLE_WCNSS_CONFIG_COPY := true
-TARGET_USES_QCOM_WCNSS_QMI       := true
-TARGET_USES_WCNSS_MAC_ADDR_REV   := true
+# No QMI in wcnss_service: it asks the modem (off on the 1520) for the MAC
+# over QMI DMS first and waits forever, so it never opens /dev/wcnss_wlan,
+# which is what loads the Pronto firmware. The MAC comes from /persist
+# through init.bandit.wifi.sh (WCNSS_qcom_cfg.ini).
+TARGET_USES_QCOM_WCNSS_QMI       := false
 WIFI_DRIVER_FW_PATH_STA          := "sta"
 WIFI_DRIVER_FW_PATH_AP           := "ap"
 WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
