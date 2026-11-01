@@ -184,11 +184,14 @@ service netmgrd /system/vendor/bin/netmgrd
     user root
     group root wifi wakelock radio inet oem_2950
 
-# QCOM sensor
+# QCOM sensor daemon: it talks to the sensor core on the ADSP. While the
+# ADSP does not boot it fails, restarts and spends about 14% of the only
+# core in the kernel; disabled until the ADSP runs ("start sensors").
 service sensors /system/vendor/bin/sensors.qcom
     class late_start
     user root
     group root
+    disabled
 
 on property:apexd.status=ready
     mount none /system/etc/swcodec/ld.config.txt /apex/com.android.media.swcodec/etc/ld.config.txt bind
