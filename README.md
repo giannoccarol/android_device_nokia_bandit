@@ -46,6 +46,10 @@ kernels use on MSM8974:
   assertion in the OTA package.
 - `init/`: vendor init (`libinit_bandit`), `liblight/`: backlight-only
   lights HAL, `libshims/`: `libaudioclient_shim` for the Qualcomm RIL blob.
+- `sensors/`: `sensors.bandit`, sensors HAL on the `bandit-*` input devices
+  of the kernel drivers (LIS2HH12, L3GD20, HSCDTD008A, APDS-9930). Scales,
+  rates and mounting matrices are in `sensors/sensors_bandit.h`. The
+  Qualcomm ADSP sensor daemon (`sensors.qcom`) is kept off.
 - `rootdir/`: `init.bandit.rc`, `init.bandit.qcom.rc` and `ueventd.bandit.rc`
   (from msm8974-common without the Oppo pieces), `init.bandit.power.rc`
   (never enables power collapse, never onlines cpu1-3, no mpdecision).

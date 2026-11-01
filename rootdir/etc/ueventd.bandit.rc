@@ -159,12 +159,19 @@
 /dev/tsc_mux0             0660   media       media
 /dev/tsc_ci0              0660   media       media
 
-# sensors
-/sys/devices/i2c-12/12-*  pollrate_ms 0664 system system
-/sys/devices/f9925000.i2c/i2c-0/0-* enable          0660     input     system
-/sys/devices/f9925000.i2c/i2c-0/0-* poll_delay      0660     input     system
-/sys/devices/virtual/input/input*                   poll           0660    input    system
-/sys/devices/virtual/input/input*                   pollrate_ms    0660    input    system
+# sensors: input devices of the bandit sensor drivers, written by
+# sensors.bandit (system). The trailing '*' is a prefix match on the device
+# path (/sys/devices/.../input/inputN).
+# APDS-9930 light/proximity (i2c-4 0x39), L3GD20 gyroscope (i2c-4 0x68)
+/sys/devices/f9925000.i2c/i2c-4/4-0039/input/input* enable      0660 system system
+/sys/devices/f9925000.i2c/i2c-4/4-0039/input/input* poll_delay  0660 system system
+/sys/devices/f9925000.i2c/i2c-4/4-0068/input/input* enable      0660 system system
+/sys/devices/f9925000.i2c/i2c-4/4-0068/input/input* poll_delay  0660 system system
+# LIS2HH12 accelerometer (i2c-5 0x1e), HSCDTD008A magnetometer (i2c-5 0x0f)
+/sys/devices/f9968000.i2c/i2c-5/5-001e/input/input* enable      0660 system system
+/sys/devices/f9968000.i2c/i2c-5/5-001e/input/input* poll_delay  0660 system system
+/sys/devices/f9968000.i2c/i2c-5/5-000f/input/input* enable      0660 system system
+/sys/devices/f9968000.i2c/i2c-5/5-000f/input/input* poll_delay  0660 system system
 
 # wlan
 /dev/wcnss_wlan           0660   system     system
