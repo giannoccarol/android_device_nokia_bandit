@@ -123,6 +123,9 @@ on post-fs-data
     mkdir /data/vendor/wifi/wpa 0770 wifi wifi
     mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
 
+    # The phone's own Wi-Fi NV and MAC addresses from /persist, if provisioned
+    exec - root root -- /vendor/bin/init.bandit.wifi.sh
+
     # Create directories for Location services
     mkdir /data/misc/location 0770 gps gps
     mkdir /data/misc/location/mq 0770 gps gps

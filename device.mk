@@ -263,6 +263,7 @@ PRODUCT_PACKAGES += \
     init.bandit.rc \
     init.bandit.power.rc \
     init.bandit.qcom.rc \
+    init.bandit.wifi.sh \
     init.qcom.bt.sh \
     init.qcom.usb.rc \
     ueventd.bandit.rc

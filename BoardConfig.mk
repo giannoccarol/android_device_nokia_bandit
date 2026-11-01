@@ -151,7 +151,9 @@ TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.recovery
 
 # SELinux (permissive from the command line during bring-up)
 include device/qcom/sepolicy-legacy/sepolicy.mk
-BOARD_SEPOLICY_DIRS += $(MSM8974_COMMON_PATH)/sepolicy
+BOARD_SEPOLICY_DIRS += \
+    $(MSM8974_COMMON_PATH)/sepolicy \
+    $(DEVICE_PATH)/sepolicy
 
 # Shims
 TARGET_LD_SHIM_LIBS := \
