@@ -40,6 +40,18 @@ PRODUCT_COPY_FILES += \
     $(MSM8974_COMMON_PATH)/configs/ld.config.txt:$(TARGET_COPY_OUT_SYSTEM)/etc/swcodec/ld.config.txt
 
 # Audio
+# Policy and mixer paths: the msm8974 common tree leaves them to each device.
+# mixer_paths.xml is the OnePlus One one (same WCD9320 codec), provisional
+# until the 1520 speaker/microphone wiring is known.
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
+    $(LOCAL_PATH)/audio/mixer_paths.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths.xml \
+    frameworks/av/services/audiopolicy/config/a2dp_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_audio_policy_configuration.xml \
+    frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes.xml \
+    frameworks/av/services/audiopolicy/config/default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml \
+    frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml \
+    frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml
+
 # The MTP ACDB files are generic fallbacks: the 1520's own calibration
 # (vendor proprietary-local/) wins when present.
 PRODUCT_COPY_FILES += \
@@ -318,3 +330,7 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     service.adb.root=1
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_k.mk)
+
+# Recovery: blocking FunctionFS for adbd (kernel 3.4)
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/etc/init.recovery.bandit.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.bandit.rc
