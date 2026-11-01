@@ -100,6 +100,23 @@ PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-service.software
 
 # Graphics
+#
+# TARGET_BANDIT_GRAPHICS selects the display stack (override from the
+# environment, e.g. TARGET_BANDIT_GRAPHICS=qcom m bacon):
+#
+#  software (default while MDSS and KGSL are off in the kernel):
+#    Android draws on the framebuffer left by the UEFI (simple-framebuffer,
+#    /dev/graphics/fb0). gralloc.default allocates and posts to fb0; with
+#    no hwcomposer module the composer service falls back to the gralloc
+#    framebuffer device (HWC2OnFbAdapter); OpenGL ES comes from SwiftShader.
+#    hwcomposer.msm8974 must not be installed, or the composer would pick it
+#    and fail on the missing MDSS driver.
+#
+#  qcom:
+#    MDSS display HAL and Adreno 330 GPU blobs, once the panel driver,
+#    KGSL and OCMEM work.
+TARGET_BANDIT_GRAPHICS ?= software
+
 PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@2.0-impl \
     android.hardware.graphics.allocator@2.0-service \
@@ -107,10 +124,25 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.mapper@2.0-impl-2.1 \
     android.hardware.memtrack@1.0-impl \
     android.hardware.memtrack@1.0-service \
-    gralloc.msm8974 \
-    hwcomposer.msm8974 \
     memtrack.msm8974 \
     liboverlay
+
+ifeq ($(TARGET_BANDIT_GRAPHICS),software)
+PRODUCT_PACKAGES += \
+    gralloc.default \
+    libEGL_swiftshader \
+    libGLESv1_CM_swiftshader \
+    libGLESv2_swiftshader
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.hardware.egl=swiftshader \
+    ro.hardware.gralloc=default \
+    ro.zygote.disable_gl_preload=true
+else
+PRODUCT_PACKAGES += \
+    gralloc.msm8974 \
+    hwcomposer.msm8974
+endif
 
 # GPS
 PRODUCT_PACKAGES += \
