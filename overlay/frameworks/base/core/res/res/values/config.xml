@@ -17,4 +17,47 @@
 
     <!-- On-screen navigation: the capacitive keys are not mapped yet -->
     <bool name="config_showNavigationBar">true</bool>
+
+    <!-- Automatic brightness from the APDS-9930 ambient light sensor
+         (calibrated in the kernel driver against a reference phone). -->
+    <bool name="config_automatic_brightness_available">true</bool>
+
+    <!-- Ambient light thresholds (lux) between the backlight levels below -->
+    <integer-array name="config_autoBrightnessLevels">
+        <item>2</item>
+        <item>5</item>
+        <item>10</item>
+        <item>20</item>
+        <item>40</item>
+        <item>70</item>
+        <item>100</item>
+        <item>150</item>
+        <item>250</item>
+        <item>400</item>
+        <item>650</item>
+        <item>1000</item>
+        <item>2000</item>
+        <item>4000</item>
+        <item>8000</item>
+    </integer-array>
+
+    <!-- Backlight (0-255) for each lux range: one more entry than above -->
+    <integer-array name="config_autoBrightnessLcdBacklightValues">
+        <item>10</item>
+        <item>16</item>
+        <item>22</item>
+        <item>30</item>
+        <item>40</item>
+        <item>52</item>
+        <item>64</item>
+        <item>78</item>
+        <item>92</item>
+        <item>108</item>
+        <item>128</item>
+        <item>150</item>
+        <item>180</item>
+        <item>210</item>
+        <item>240</item>
+        <item>255</item>
+    </integer-array>
 </resources>
