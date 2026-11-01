@@ -16,8 +16,15 @@ PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 PRODUCT_PACKAGES += \
     fstab.bandit \
     init.bandit.rc \
+    init.qcom.usb.rc \
     init.recovery.qcom.rc \
     ueventd.qcom.rc
+
+# Bring-up debugging: adbd runs as root from the first boot (userdebug,
+# ro.debuggable=1); adb is enabled by default on debuggable builds and
+# SELinux is permissive from the kernel command line.
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    service.adb.root=1
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_k.mk)
 

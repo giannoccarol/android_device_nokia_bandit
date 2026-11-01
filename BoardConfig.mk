@@ -22,6 +22,11 @@ BOARD_KERNEL_SEPARATED_DT := false
 BOARD_KERNEL_CMDLINE := androidboot.hardware=bandit androidboot.bootdevice=msm_sdcc.1 \
     msm_tz_restricted=1 nosmp maxcpus=1 \
     console=tty0 fbcon=font:SUN12x22 androidboot.selinux=permissive
+# lk1st loads the kernel at 0x10008000, ramdisk at 0x14000000, tags at
+# 0x13e00000 (it ignores the header, these keep the image consistent);
+# the kernel runs with PHYS_OFFSET 0x10000000.
+BOARD_KERNEL_BASE := 0x10000000
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x04000000 --tags_offset 0x03e00000
 TARGET_KERNEL_SOURCE := kernel/nokia/msm8974
 TARGET_KERNEL_CONFIG := lineage_bandit_defconfig
 
