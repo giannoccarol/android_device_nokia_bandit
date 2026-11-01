@@ -122,7 +122,8 @@ PRODUCT_PACKAGES += \
 #    no hwcomposer module the composer service falls back to the gralloc
 #    framebuffer device (HWC2OnFbAdapter); OpenGL ES comes from SwiftShader.
 #    hwcomposer.msm8974 must not be installed, or the composer would pick it
-#    and fail on the missing MDSS driver.
+#    and fail on the missing MDSS driver. No boot animation: rendered in
+#    software it takes about a quarter of the only core.
 #
 #  qcom:
 #    MDSS display HAL and Adreno 330 GPU blobs, once the panel driver,
@@ -149,19 +150,16 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.hardware.egl=swiftshader \
     ro.hardware.gralloc=default \
-    ro.zygote.disable_gl_preload=true
+    ro.zygote.disable_gl_preload=true \
+    debug.sf.nobootanimation=1
 else
 PRODUCT_PACKAGES += \
     gralloc.msm8974 \
     hwcomposer.msm8974
 endif
 
-# GPS
-PRODUCT_PACKAGES += \
-    android.hardware.gnss@1.0-impl.legacy \
-    android.hardware.gnss@1.0-service.legacy \
-    gps.msm8974
-
+# GPS: no GNSS HAL yet. The legacy service crash-loops (the Qualcomm
+# location blobs miss libgps.utils) and the modem is not up.
 PRODUCT_COPY_FILES += \
     $(MSM8974_COMMON_PATH)/gps/flp.conf:$(TARGET_COPY_OUT_SYSTEM)/etc/flp.conf \
     $(MSM8974_COMMON_PATH)/gps/gps.conf:$(TARGET_COPY_OUT_SYSTEM)/etc/gps.conf \
@@ -293,10 +291,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.0-service.basic
 
-# Vibrator
-PRODUCT_PACKAGES += \
-    android.hardware.vibrator@1.0-impl \
-    android.hardware.vibrator@1.0-service
+# Vibrator: none until a driver exists (no timed_output/vibrator on the
+# 1520). A declared but failing vibrator HAL blocks system_server in
+# VibratorService.vibratorInit until the watchdog kills it.
 
 # VNDK
 PRODUCT_COPY_FILES += \

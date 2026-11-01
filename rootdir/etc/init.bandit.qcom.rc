@@ -153,10 +153,15 @@ on fs
 
     mount none /system/etc/gps.conf /system/etc/gps_debug.conf bind
 
+# Bring-up: rmt_storage, adsprpcd and loc_launcher exit right away on the
+# 1520 for now and init restarts them in a loop on the only core. They are
+# disabled until the modem, FastRPC and location stacks work (start them
+# by hand with "start <name>" to debug).
 service rmt_storage /system/vendor/bin/rmt_storage
     class core
     user root
     group system wakelock
+    disabled
 
 service rfs_access /system/vendor/bin/rfs_access
     class core
@@ -197,6 +202,7 @@ service loc_launcher /system/vendor/bin/loc_launcher
     # loc_launcher will start as root and set its uid to gps
     class late_start
     group gps inet net_raw diag oem_2950 net_admin wifi
+    disabled
 
 service vendor.qseecomd /system/vendor/bin/qseecomd
     class core
@@ -252,6 +258,7 @@ service adsprpcd /system/vendor/bin/adsprpcd
     class main
     user media
     group media
+    disabled
 
 service wcnss-service /vendor/bin/wcnss_service
     class main
