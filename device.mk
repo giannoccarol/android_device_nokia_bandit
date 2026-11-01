@@ -325,6 +325,12 @@ PRODUCT_COPY_FILES += \
     $(MSM8974_COMMON_PATH)/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
     $(MSM8974_COMMON_PATH)/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf
 
+# Audio bring-up tools (userdebug/eng)
+PRODUCT_PACKAGES_DEBUG += \
+    tinycap \
+    tinymix \
+    tinyplay
+
 # Bring-up debugging: adbd runs as root from the first boot (userdebug,
 # ro.debuggable=1); adb is enabled by default on debuggable builds and
 # SELinux is permissive from the kernel command line.
