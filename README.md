@@ -49,6 +49,11 @@ kernels use on MSM8974:
 - `rootdir/`: `init.bandit.rc`, `init.bandit.qcom.rc` and `ueventd.bandit.rc`
   (from msm8974-common without the Oppo pieces), `init.bandit.power.rc`
   (never enables power collapse, never onlines cpu1-3, no mpdecision).
+- `audio/`: audio policy and mixer paths. `mixer_paths.xml` comes from the
+  OnePlus One (same WCD9320 codec) and is provisional until the 1520
+  speaker/microphone wiring is known.
+- `system.prop` (QMI RIL library, CABL off), `bluetooth/` (Pronto build
+  config), `config.fs` (`/persist` permissions).
 - `overlay/`: values that replace the Oppo ones (no lid, no double tap, no
   LED, no hardware keys, on-screen navigation bar).
 - Files of the 1520 itself (firmware, Wi-Fi config, audio calibration) are
