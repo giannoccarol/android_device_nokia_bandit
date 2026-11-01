@@ -124,8 +124,7 @@ PRODUCT_PACKAGES += \
 #    no hwcomposer module the composer service falls back to the gralloc
 #    framebuffer device (HWC2OnFbAdapter); OpenGL ES comes from SwiftShader.
 #    hwcomposer.msm8974 must not be installed, or the composer would pick it
-#    and fail on the missing MDSS driver. No boot animation: rendered in
-#    software it takes about a quarter of the only core.
+#    and fail on the missing MDSS driver.
 #
 #  qcom:
 #    MDSS display HAL and Adreno 330 GPU blobs, once the panel driver,
@@ -155,8 +154,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.hardware.egl=swiftshader \
     ro.hardware.gralloc=default \
-    ro.zygote.disable_gl_preload=true \
-    debug.sf.nobootanimation=1
+    ro.zygote.disable_gl_preload=true
 else
 PRODUCT_PACKAGES += \
     gralloc.msm8974 \
