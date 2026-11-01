@@ -116,25 +116,26 @@ PRODUCT_PACKAGES += \
 # Graphics
 #
 # TARGET_BANDIT_GRAPHICS selects the display stack (override from the
-# environment, e.g. TARGET_BANDIT_GRAPHICS=qcom m bacon):
+# environment, e.g. TARGET_BANDIT_GRAPHICS=software m bacon):
 #
-#  software (default while MDSS and KGSL are off in the kernel):
+#  qcom (default):
+#    MDSS display HAL (gralloc.msm8974, hwcomposer.msm8974 through
+#    HWC2On1Adapter: layers composed by the MDP, frames kicked off to the
+#    command mode panel) and the Adreno 330 GPU blobs. Needs the kernel
+#    with MDSS continuous splash, OCMEM and KGSL (default since v16).
+#
+#  mdss:
+#    Same display HAL with OpenGL ES from SwiftShader, to test the panel
+#    driver without the GPU.
+#
+#  software:
 #    Android draws on the framebuffer left by the UEFI (simple-framebuffer,
 #    /dev/graphics/fb0). gralloc.default allocates and posts to fb0; with
 #    no hwcomposer module the composer service falls back to the gralloc
 #    framebuffer device (HWC2OnFbAdapter); OpenGL ES comes from SwiftShader.
-#    hwcomposer.msm8974 must not be installed, or the composer would pick it
-#    and fail on the missing MDSS driver.
-#
-#  mdss (bring-up of the MDSS panel driver):
-#    MDSS display HAL (gralloc.msm8974, hwcomposer.msm8974: frames are
-#    kicked off to the command mode panel through MDSS) with OpenGL ES from
-#    SwiftShader, to test the display without the GPU.
-#
-#  qcom:
-#    MDSS display HAL and Adreno 330 GPU blobs, once the panel driver,
-#    KGSL and OCMEM work.
-TARGET_BANDIT_GRAPHICS ?= software
+#    Needs a kernel with simple-framebuffer enabled and MDSS disabled in
+#    the device tree; hwcomposer.msm8974 must not be installed.
+TARGET_BANDIT_GRAPHICS ?= qcom
 
 PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@2.0-impl \
