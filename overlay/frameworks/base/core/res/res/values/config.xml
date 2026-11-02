@@ -15,8 +15,9 @@
     <!-- No notification LED -->
     <bool name="config_intrusiveNotificationLed">false</bool>
 
-    <!-- On-screen navigation: the capacitive keys are not mapped yet -->
-    <bool name="config_showNavigationBar">true</bool>
+    <!-- Capacitive keys by default; enabling the navigation bar or gestures
+         in LineageOS turns the keys off through the key disabler. -->
+    <bool name="config_showNavigationBar">false</bool>
 
     <!-- Automatic brightness from the APDS-9930 ambient light sensor
          (calibrated in the kernel driver against a reference phone). -->

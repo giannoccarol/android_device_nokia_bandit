@@ -5,8 +5,8 @@
      SPDX-License-Identifier: Apache-2.0
 -->
 <resources>
-    <!-- No hardware keys handled by Lineage yet (Oppo had home/back/menu/app switch) -->
-    <integer name="config_deviceHardwareKeys">0</integer>
+    <!-- Capacitive keys: back (2), home (1), app switch (16) -->
+    <integer name="config_deviceHardwareKeys">19</integer>
 
     <!-- No button backlight control -->
     <integer name="config_deviceSupportsButtonBrightnessControl">0</integer>

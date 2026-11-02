@@ -248,6 +248,13 @@ PRODUCT_PACKAGES += \
     libtinyxml \
     libxml2
 
+# Capacitive keys
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/keylayout/synaptics_rmi4_i2c.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/synaptics_rmi4_i2c.kl
+
+PRODUCT_PACKAGES += \
+    vendor.lineage.touch@1.0-service.bandit
+
 # Radio: the Windows modem firmware leaves the USIM DETECTED until the host
 # opens the provisioning session (ril/bandit-uim-bootstrap.c)
 PRODUCT_PACKAGES += \
