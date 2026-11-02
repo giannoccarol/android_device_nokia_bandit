@@ -248,8 +248,18 @@ PRODUCT_PACKAGES += \
     libtinyxml \
     libxml2
 
-# Permissions (no NFC: there is no Android NFC stack for the 1520 chip)
+# NFC: NXP PN544 (HCI, pre-NCI), driven by the legacy NXP stack
+# (external/libnfc-nxp and the nxp variant of packages/apps/Nfc).
+PRODUCT_PACKAGES += \
+    libnfc \
+    libnfc_jni \
+    nfc.bandit \
+    Nfc \
+    Tag
+
+# Permissions
 PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.nfc.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.nfc.xml \
     external/ant-wireless/antradio-library/com.dsi.ant.antradio_library.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/com.dsi.ant.antradio_library.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/handheld_core_hardware.xml \
     frameworks/native/data/etc/android.hardware.audio.low_latency.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.audio.low_latency.xml \

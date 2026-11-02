@@ -182,6 +182,11 @@ BOARD_SEPOLICY_DIRS += \
 TARGET_LD_SHIM_LIBS := \
     /system/vendor/lib/libril-qc-qmi-1.so|libaudioclient_shim.so
 
+# NFC: libnfc-nxp configuration from nfc/nfc_custom_config.h. libnfc-nxp
+# looks for it among the copied headers, so LOCAL_COPY_HEADERS is needed.
+TARGET_HAS_NFC_CUSTOM_CONFIG := true
+BUILD_BROKEN_USES_BUILD_COPY_HEADERS := true
+
 # Wifi
 BOARD_HAS_QCOM_WLAN              := true
 BOARD_WLAN_DEVICE                := qcwcn

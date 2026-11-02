@@ -184,3 +184,6 @@
 /dev/uio1                 0660   system     system
 /dev/uio2                 0660   system     system
 
+# NFC (PN544, pn544-bandit)
+/dev/pn544                0660   nfc        nfc
+
