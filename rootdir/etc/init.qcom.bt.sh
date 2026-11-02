@@ -86,7 +86,10 @@ if [ -r /persist/bdaddr.txt ]; then
   fi
 fi
 
-eval $(/system/vendor/bin/hci_qcomm_init -e $PWR_CLASS $LE_PWR_CLASS $BD_ADDR && echo "exit_code_hci_qcomm_init=0" || echo "exit_code_hci_qcomm_init=1")
+# The modem does not run: without the shim, hci_qcomm_init waits about 60 s
+# for QMI DMS (the address comes from -b anyway) and the Bluetooth stack
+# gives up and crashes the HAL first.
+eval $(LD_PRELOAD=/vendor/lib/libbtqmishim.so /system/vendor/bin/hci_qcomm_init -e $PWR_CLASS $LE_PWR_CLASS $BD_ADDR && echo "exit_code_hci_qcomm_init=0" || echo "exit_code_hci_qcomm_init=1")
 
 case $exit_code_hci_qcomm_init in
   0) logi "Bluetooth QSoC firmware download succeeded, $BTS_DEVICE $BTS_TYPE $BTS_BAUD $BTS_ADDRESS";;

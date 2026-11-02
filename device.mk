@@ -287,6 +287,7 @@ PRODUCT_PACKAGES += \
     init.bandit.qcom.rc \
     init.bandit.wifi.sh \
     init.qcom.bt.sh \
+    libbtqmishim \
     init.qcom.usb.rc \
     ueventd.bandit.rc
 
