@@ -9,8 +9,9 @@
        - microphones: four digital mics. Handset mic DMIC1 (ACDB 4),
          speakerphone mic DMIC4 (ACDB 11), broadside DMIC1+2, endfire and
          stereo DMIC2+4, quad DMIC1-4.
-       - loudspeaker: external amplifier on the secondary MI2S (ACDB 70),
-         not a codec output; see the "sec-mi2s" paths.
+       - loudspeaker: TI TAS2552 amplifier (I2C 0x40 on BLSP1 QUP5) on the
+         secondary MI2S (ACDB 70), not a codec output; see the "sec-mi2s"
+         paths and the "spk" path.
      Listening tests still pending: kit/audio in the bandit workspace. -->
 <mixer>
     <!-- These are the initial mixer settings -->
@@ -33,6 +34,10 @@
     <ctl name="Voip Evrc Min Max Rate Config" id="1" value="4" />
     <ctl name="Voip Dtx Mode" value="0" />
     <ctl name="TTY Mode" value="OFF" />
+    <!-- TAS2552 loudspeaker amplifier (kernel tas2552-i2s): -7 dB while
+         idle, both I2S channels averaged into the mono speaker -->
+    <ctl name="TAS2552 Speaker Volume" value="0" />
+    <ctl name="TAS2552 DIN Source" value="Left + Right average" />
     <ctl name="LINEOUT1 Volume" value="0" />
     <ctl name="LINEOUT2 Volume" value="0" />
     <ctl name="LINEOUT3 Volume" value="0" />
@@ -770,8 +775,11 @@
     </path>
 
     <!-- The loudspeaker is not on a codec output: nothing to set in the
-         WCD9320 (the amplifier is fed by the sec-mi2s paths above). -->
+         WCD9320. The TAS2552 is fed by the sec-mi2s paths above and powers
+         itself with the stream; only its gain is set here: 16 = +9 dB
+         (0 = -7 dB, 1 dB steps, 31 = +24 dB). -->
     <path name="spk">
+        <ctl name="TAS2552 Speaker Volume" value="16" />
     </path>
 
     <path name="hph">
