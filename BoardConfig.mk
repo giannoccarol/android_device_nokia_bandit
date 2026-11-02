@@ -68,3 +68,13 @@ TW_SCREEN_BLANK_ON_BOOT := false
 TW_EXCLUDE_SUPERSU := true
 TW_EXCLUDE_TWRPAPP := true
 TW_USE_TOOLBOX := true
+
+# USB: legacy android_usb gadget of the 3.4 kernel (adb on FunctionFS,
+# MTP on /dev/mtp_usb). No USB mass storage: the kernel names its LUN "lun"
+# and TWRP only builds paths with a LUN number.
+# The TWRP MTP server opens TW_MTP_DEVICE and hands the descriptor to
+# MtpDevHandle, whose start() opens /dev/mtp_usb again; f_mtp allows a
+# single open (-EBUSY), so with the default the second open failed ("Failed
+# to start usb driver"). Point the first open at /dev/null: start() then
+# opens /dev/mtp_usb once.
+TW_MTP_DEVICE := /dev/null
