@@ -6,7 +6,8 @@
        - earpiece: EAR (EAROUT_SPEAKER, ACDB 7)
        - headset: HPHL/HPHR (HEADSET_SPEAKER_STEREO, ACDB 10); headset mic
          on ADC2 (ACDB 8)
-       - microphones: four digital mics. Handset mic DMIC1 (ACDB 4),
+       - microphones: four digital mics. Handset mic DMIC3 (ACDB 4,
+         measured: the stock name DMIC_1 is not the codec numbering),
          speakerphone mic DMIC4 (ACDB 11), broadside DMIC1+2, endfire and
          stereo DMIC2+4, quad DMIC1-4.
        - loudspeaker: TI TAS2552 amplifier (I2C 0x40 on BLSP1 QUP5) on the
@@ -862,11 +863,14 @@
         <ctl name="IIR1 INP1 MUX" value="DEC5" />
     </path>
 
+    <!-- Main mic: DMIC3. Measured with speech held as in a call: DMIC3
+         about -50 dBFS, DMIC4 -66, DMIC1 -74, DMIC2 silent. The stock
+         calibration name DMIC_1 does not follow the codec numbering. -->
     <path name="main-mic">
         <ctl name="AIF1_CAP Mixer SLIM TX7" value="1"/>
-        <ctl name="SLIM TX7 MUX" value="DEC1" />
-        <ctl name="DEC1 MUX" value="DMIC1" />
-        <ctl name="DEC1 Volume" value="84" />
+        <ctl name="SLIM TX7 MUX" value="DEC3" />
+        <ctl name="DEC3 MUX" value="DMIC3" />
+        <ctl name="DEC3 Volume" value="84" />
     </path>
 
     <!-- speakerphone mic (SPKR_PHONE_MIC: DMIC4) -->
