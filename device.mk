@@ -86,11 +86,11 @@ PRODUCT_PACKAGES += \
 # Boot animation
 TARGET_BOOTANIMATION_HALF_RES := true
 
-# Camera (no camera HAL for the 1520 yet: the provider reports no camera)
+# Camera (no camera HAL for the 1520 yet: the provider reports no camera).
+# Snap is left out until there is one: it only showed a black window.
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
-    camera.device@1.0-impl \
-    Snap
+    camera.device@1.0-impl
 
 # Charger
 PRODUCT_PACKAGES += \
