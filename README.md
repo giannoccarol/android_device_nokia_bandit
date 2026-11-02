@@ -12,7 +12,7 @@ Minimal TWRP manifest, `twrp-9.0` branch:
 ```bash
 repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni.git -b twrp-9.0
 repo sync
-git clone https://github.com/giannoccarol/twrp_device_nokia_bandit -b twrp-9.0 device/nokia/bandit
+git clone https://github.com/giannoccarol/android_device_nokia_bandit -b twrp-9.0 device/nokia/bandit
 export ALLOW_MISSING_DEPENDENCIES=true
 . build/envsetup.sh
 lunch omni_bandit-eng
