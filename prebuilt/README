@@ -1,0 +1,9 @@
+zImage-dtb: Linux 3.4 kernel for the Nokia Lumia 1520 with the bandit device
+tree appended.
+
+Source: https://github.com/giannoccarol/android_kernel_nokia_msm8974
+Branch: lineage-18.1-bandit, commit 1ff76c9f
+Config: lineage_bandit_defconfig
+Toolchain: arm-linux-androideabi-4.9 (LineageOS 18.1 prebuilts)
+Build: make ARCH=arm CROSS_COMPILE=arm-linux-androideabi- lineage_bandit_defconfig zImage-dtb
+SHA-256: 17310357331374f62cc7c374928e1cf9d65549ff5916783fbd15e4877e221e8c
