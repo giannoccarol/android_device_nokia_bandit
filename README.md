@@ -44,9 +44,11 @@ The Windows Phone TrustZone needs `msm_tz_restricted=1` on the command line.
 
 ## Status
 
-Tested with `fastboot boot` on an RM-937: display, touch, ADB, partitions,
-data and cache mounted, backup of boot. MTP: fixed after the first test
-(`TW_MTP_DEVICE`, see BoardConfig.mk), not yet confirmed on the phone.
+Tested with `fastboot boot` on an RM-937: display, touch, ADB, ADB
+sideload (LineageOS zip installed), partitions, data and cache mounted,
+backup of boot. MTP starts (`TW_MTP_DEVICE`, see BoardConfig.mk) and the
+phone shows up with its internal storage; copying files to the phone over
+MTP is not verified yet.
 Known issues: no USB mass storage, the `twrp` command line client crashes
 after running a command, microSD not tested with a regular card.
 
