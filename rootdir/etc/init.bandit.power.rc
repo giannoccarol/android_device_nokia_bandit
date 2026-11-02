@@ -16,6 +16,9 @@
 
 on early-init
     write /sys/block/mmcblk0/bdi/read_ahead_kb 512
+    # eMMC requests do not feed the entropy pool: less work per request,
+    # the pool has other sources
+    write /sys/block/mmcblk0/queue/add_random 0
 
 on boot
     # Double tap to wake switch, written by the power HAL (user system)
