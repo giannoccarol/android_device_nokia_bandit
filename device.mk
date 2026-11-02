@@ -41,9 +41,11 @@ PRODUCT_COPY_FILES += \
 
 # Audio
 # Policy and mixer paths: the msm8974 common tree leaves them to each device.
-# mixer_paths.xml is the OnePlus One one (same WCD9320 codec), provisional
-# until the 1520 speaker/microphone wiring is known.
+# mixer_paths.xml starts from the OnePlus One one (same WCD9320 codec) with
+# the 1520 microphones; audio_platform_info.xml moves the loudspeaker to the
+# secondary MI2S amplifier.
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/audio/audio_platform_info.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_platform_info.xml \
     $(LOCAL_PATH)/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
     $(LOCAL_PATH)/audio/mixer_paths.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths.xml \
     frameworks/av/services/audiopolicy/config/a2dp_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_audio_policy_configuration.xml \
