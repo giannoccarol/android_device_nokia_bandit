@@ -8,8 +8,8 @@
     <!-- Capacitive keys: back (2), home (1), app switch (16) -->
     <integer name="config_deviceHardwareKeys">19</integer>
 
-    <!-- No button backlight control -->
-    <integer name="config_deviceSupportsButtonBrightnessControl">0</integer>
+    <!-- Variable key backlight (PM8941 KPDBL rows) -->
+    <integer name="config_deviceSupportsButtonBrightnessControl">2</integer>
 
     <!-- No Oppo ConfigPanel / touchscreen gesture key handlers -->
     <string-array name="config_deviceKeyHandlerLibs" translatable="false" />

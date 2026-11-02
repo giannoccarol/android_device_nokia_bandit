@@ -4,8 +4,8 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-// Backlight-only lights HAL: the Lumia 1520 has no notification LED and
-// no separately controlled button backlight.
+// Lights HAL: LCD backlight and the capacitive key backlight (PM8941
+// KPDBL). The Lumia 1520 has no notification LED.
 cc_library_shared {
     name: "lights.msm8974",
     relative_install_path: "hw",
