@@ -19,7 +19,8 @@
 /dev/block/platform/msm_sdcc.1/by-name/aboot        /aboot          emmc    defaults                                                        defaults
 /dev/block/platform/msm_sdcc.1/by-name/persistent   /persistent     emmc    defaults                                                        defaults
 
-# Compressed swap in RAM (zram, LZ4): 512 MB, about a third of the usable RAM
-/dev/block/zram0                                    none            swap    defaults                                                        zramsize=536870912,max_comp_streams=1
+# Compressed swap in RAM (zram, LZ4): 512 MB, about a third of the usable RAM;
+# one compression stream per core (all four cores run since SMP)
+/dev/block/zram0                                    none            swap    defaults                                                        zramsize=536870912,max_comp_streams=4
 
 /devices/msm_sdcc.2/mmc_host*                       auto            auto    defaults                                                        voldmanaged=sdcard1:auto,encryptable=userdata

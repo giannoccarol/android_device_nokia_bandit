@@ -47,7 +47,9 @@ on boot
     write /sys/module/cpu_boost/parameters/input_boost_freq 1497600
     write /sys/module/cpu_boost/parameters/input_boost_ms 40
 
-    write /sys/class/devfreq/qcom,cpubw.40/governor "cpubw_hwmon"
+    # The OnePlus One writes qcom,cpubw.40: on the 1520 the same msm8974.dtsi
+    # node is numbered 41 (the auto-numbered devices before it differ).
+    write /sys/class/devfreq/qcom,cpubw.41/governor "cpubw_hwmon"
     # GPU: msm-adreno-tz is the kernel's default governor and decides in the
     # kernel (no TrustZone DCVS calls on the 1520), nothing to write here.
 
