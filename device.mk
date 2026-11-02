@@ -306,8 +306,12 @@ PRODUCT_COPY_FILES += \
     $(MSM8974_COMMON_PATH)/configs/privapp-permissions-qti.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-qti.xml
 
 # Power
+# The power HAL takes its boosts from libbandit-perflock (perf/), named by
+# ro.vendor.extension_library in system.prop: mpdecision, which serves them
+# on the OnePlus One, cannot run without CPU hotplug.
 PRODUCT_PACKAGES += \
-    android.hardware.power-service-qti
+    android.hardware.power-service-qti \
+    libbandit-perflock
 
 # Rootdir
 PRODUCT_PACKAGES += \

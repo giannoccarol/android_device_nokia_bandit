@@ -24,3 +24,7 @@ ro.ril.ext.ecclist=112,911,999,110,122,119,120,000,08,118
 # installer as "AA:BB:CC:DD:EE:FF"): the Bluetooth HAL reads it from here;
 # init.qcom.bt.sh writes the same address to Pronto with hci_qcomm_init -b
 ro.bt.bdaddr_path=/persist/bdaddr.txt
+
+# Power HAL perf locks: libbandit-perflock applies them in place of
+# mpdecision (overrides libqti-perfd-client.so of the msm8974 common tree)
+ro.vendor.extension_library=libbandit-perflock.so
