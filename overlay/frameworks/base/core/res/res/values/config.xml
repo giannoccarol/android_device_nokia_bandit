@@ -9,8 +9,9 @@
     <!-- No flip cover sensor -->
     <bool name="config_lidControlsSleep">false</bool>
 
-    <!-- No double tap to wake (Oppo touch panel feature) -->
-    <bool name="config_supportDoubleTapWake">false</bool>
+    <!-- Double tap to wake: the touch firmware's wakeup gesture, switched
+         by the power HAL (TARGET_TAP_TO_WAKE_NODE) -->
+    <bool name="config_supportDoubleTapWake">true</bool>
 
     <!-- No notification LED -->
     <bool name="config_intrusiveNotificationLed">false</bool>
@@ -61,4 +62,5 @@
         <item>240</item>
         <item>255</item>
     </integer-array>
+
 </resources>

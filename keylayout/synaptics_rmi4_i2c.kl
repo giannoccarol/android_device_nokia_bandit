@@ -4,3 +4,6 @@
 key 158   BACK        VIRTUAL
 key 172   HOME        VIRTUAL
 key 139   APP_SWITCH  VIRTUAL
+
+# Double tap on the screen while it is off (touch firmware wakeup gesture)
+key 143   WAKEUP

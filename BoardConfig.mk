@@ -147,6 +147,8 @@ BOARD_ROOT_EXTRA_FOLDERS := firmware persist
 
 # Power
 TARGET_USES_INTERACTION_BOOST := true
+# Double tap to wake: the power HAL writes the Synaptics driver's switch
+TARGET_TAP_TO_WAKE_NODE := "/sys/devices/f9924000.i2c/i2c-2/2-004b/wake_gesture"
 
 # Properties
 TARGET_SYSTEM_PROP += $(MSM8974_COMMON_PATH)/system.prop $(DEVICE_PATH)/system.prop
