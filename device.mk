@@ -248,6 +248,11 @@ PRODUCT_PACKAGES += \
     libtinyxml \
     libxml2
 
+# Radio: the Windows modem firmware leaves the USIM DETECTED until the host
+# opens the provisioning session (ril/bandit-uim-bootstrap.c)
+PRODUCT_PACKAGES += \
+    bandit-uim-bootstrap
+
 # NFC: NXP PN544 (HCI, pre-NCI), driven by the legacy NXP stack
 # (external/libnfc-nxp and the nxp variant of packages/apps/Nfc).
 PRODUCT_PACKAGES += \
