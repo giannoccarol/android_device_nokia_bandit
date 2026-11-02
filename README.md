@@ -42,6 +42,13 @@ The Windows Phone TrustZone needs `msm_tz_restricted=1` on the command line.
 - The screen is never blanked (no panel power sequence yet); the backlight
   dims on timeout.
 
+## Status
+
+Tested with `fastboot boot` on an RM-937: display, touch, ADB, partitions,
+data and cache mounted, backup of boot. Known issues: MTP does not start,
+the `twrp` command line client crashes after running a command, microSD not
+tested with a regular card.
+
 ## Credits
 
 - [TeamWin](https://github.com/TeamWin) — TWRP.
