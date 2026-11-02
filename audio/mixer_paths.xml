@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<!-- Lumia 1520 (bandit): PROVISIONAL. Copied from the OnePlus One (bacon,
-     LineageOS android_device_oneplus_bacon 7a4af4b), which has the same
-     WCD9320 (Taiko) codec and msm8974-taiko-mtp sound card. Headset (HPHL/R)
-     and earpiece (EAR) follow the codec's standard outputs; speaker and
-     microphone routes still have to be checked against the 1520 wiring
-     (see KorelisLabs lumia-1520-mainline docs/audio). -->
+<!-- Lumia 1520 (bandit). Based on the OnePlus One (bacon, LineageOS
+     android_device_oneplus_bacon 7a4af4b), which has the same WCD9320
+     (Taiko) codec and msm8974-taiko sound card. Routes from the stock
+     Windows audio calibration (codec path names per ACDB device):
+       - earpiece: EAR (EAROUT_SPEAKER, ACDB 7)
+       - headset: HPHL/HPHR (HEADSET_SPEAKER_STEREO, ACDB 10); headset mic
+         on ADC2 (ACDB 8)
+       - microphones: four digital mics. Handset mic DMIC1 (ACDB 4),
+         speakerphone mic DMIC4 (ACDB 11), broadside DMIC1+2, endfire and
+         stereo DMIC2+4, quad DMIC1-4.
+       - loudspeaker: external amplifier on the secondary MI2S (ACDB 70),
+         not a codec output; see the "sec-mi2s" paths.
+     Listening tests still pending: kit/audio in the bandit workspace. -->
 <mixer>
     <!-- These are the initial mixer settings -->
     <ctl name="Voice Rx Device Mute" id="0" value="0" />
@@ -818,12 +825,15 @@
 
     <path name="main-mic">
         <ctl name="AIF1_CAP Mixer SLIM TX7" value="1"/>
-        <ctl name="SLIM TX7 MUX" value="DEC4" />
-        <ctl name="DEC4 MUX" value="ADC3" />
+        <ctl name="SLIM TX7 MUX" value="DEC1" />
+        <ctl name="DEC1 MUX" value="DMIC1" />
+        <ctl name="DEC1 Volume" value="84" />
     </path>
 
+    <!-- speakerphone mic (SPKR_PHONE_MIC: DMIC4) -->
     <path name="anc-mic">
-        <ctl name="DEC2 MUX" value="ADC5" />
+        <ctl name="DEC4 MUX" value="DMIC4" />
+        <ctl name="DEC4 Volume" value="84" />
     </path>
 
 
@@ -831,14 +841,12 @@
     <path name="handset-mic">
         <path name="main-mic" />
         <ctl name="SLIM_0_TX Channels" value="One" />
-        <ctl name="ADC3 Volume" value="19" />
     </path>
 
     <path name="speaker-mic">
         <ctl name="AIF1_CAP Mixer SLIM TX7" value="1" />
         <ctl name="SLIM_0_TX Channels" value="One" />
-        <ctl name="SLIM TX7 MUX" value="DEC2" />
-        <ctl name="ADC5 Volume" value="19" />
+        <ctl name="SLIM TX7 MUX" value="DEC4" />
         <path name="anc-mic" />
     </path>
 
@@ -853,7 +861,6 @@
     <path name="voice-rec-mic">
         <path name="main-mic" />
         <ctl name="SLIM_0_TX Channels" value="One" />
-        <ctl name="ADC3 Volume" value="19" />
     </path>
 
     <path name="voice-speaker-mic">
@@ -901,20 +908,21 @@
     </path>
 
     <!-- Dual-mic recording -->
+    <!-- HANDSET_MIC_ENDFIRE / SPKR_MIC_STEREO: DMIC2 + DMIC4 -->
     <path name="handset-dmic">
         <ctl name="AIF1_CAP Mixer SLIM TX7" value="1" />
         <ctl name="AIF1_CAP Mixer SLIM TX8" value="1" />
         <ctl name="SLIM_0_TX Channels" value="Two" />
-        <ctl name="SLIM TX7 MUX" value="DEC4" />
-        <ctl name="DEC4 MUX" value="ADC3" />
-        <ctl name="SLIM TX8 MUX" value="DEC3" />
-        <ctl name="DEC3 MUX" value="ADC4" />
+        <ctl name="SLIM TX7 MUX" value="DEC2" />
+        <ctl name="DEC2 MUX" value="DMIC2" />
+        <ctl name="DEC2 Volume" value="84" />
+        <ctl name="SLIM TX8 MUX" value="DEC4" />
+        <ctl name="DEC4 MUX" value="DMIC4" />
+        <ctl name="DEC4 Volume" value="84" />
     </path>
 
     <path name="dmic-endfire">
         <path name="handset-dmic" />
-        <ctl name="ADC3 Volume" value="9" />
-        <ctl name="ADC4 Volume" value="9" />
     </path>
 
     <path name="voice-dmic-ef">
@@ -922,25 +930,12 @@
     </path>
 
     <path name="voice-speaker-dmic-ef">
-        <ctl name="AIF1_CAP Mixer SLIM TX7" value="1"/>
-        <ctl name="SLIM_0_TX Channels" value="One" />
-        <ctl name="SLIM TX7 MUX" value="DEC3" />
-        <ctl name="DEC3 MUX" value="ADC4" />
-        <ctl name="ADC4 Volume" value="19" />
-        <ctl name="DEC3 Volume" value="84" />
+        <path name="speaker-mic" />
     </path>
 
     <!-- Stereo recording -->
     <path name="speaker-stereo-dmic-ef">
-        <ctl name="AIF1_CAP Mixer SLIM TX7" value="1" />
-        <ctl name="AIF1_CAP Mixer SLIM TX8" value="1" />
-        <ctl name="SLIM_0_TX Channels" value="Two" />
-        <ctl name="SLIM TX7 MUX" value="DEC4" />
-        <ctl name="DEC4 MUX" value="ADC3" />
-        <ctl name="SLIM TX8 MUX" value="DEC2" />
-        <ctl name="DEC2 MUX" value="ADC5" />
-        <ctl name="ADC3 Volume" value="19" />
-        <ctl name="ADC5 Volume" value="19" />
+        <path name="handset-dmic" />
     </path>
 
     <path name="speaker-dmic-endfire">
@@ -949,8 +944,6 @@
 
     <path name="handset-stereo-dmic-ef">
         <path name="handset-dmic" />
-        <ctl name="ADC3 Volume" value="19" />
-        <ctl name="ADC4 Volume" value="19" />
     </path>
 
     <path name="camcorder-mic">
@@ -1001,10 +994,10 @@
     </path>
 
 
-    <!-- MAD -->
+    <!-- MAD on the handset mic (DMIC1) -->
     <path name="listen-handset-mic">
         <ctl name="MADONOFF Switch" value="1" />
-        <ctl name="MAD Input" value="ADC3" />
+        <ctl name="MAD Input" value="DMIC1" />
     </path>
 
     <path name="voice-rx">
