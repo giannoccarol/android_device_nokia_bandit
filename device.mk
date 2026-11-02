@@ -180,11 +180,17 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.hardware.egl=adreno
 endif
 
-# GPS: no GNSS HAL yet. The legacy service crash-loops (the Qualcomm
-# location blobs miss libgps.utils) and the modem is not up.
+# GPS: the msm8974-common location HAL (gps.msm8974, built from source)
+# behind the LineageOS legacy GNSS service. It talks QMI LOC to the modem
+# through the libloc_api_v02 blob. See kit/gps/README.md.
+PRODUCT_PACKAGES += \
+    android.hardware.gnss@1.0-impl.legacy \
+    android.hardware.gnss@1.0-service.legacy \
+    gps.msm8974
+
 PRODUCT_COPY_FILES += \
     $(MSM8974_COMMON_PATH)/gps/flp.conf:$(TARGET_COPY_OUT_SYSTEM)/etc/flp.conf \
-    $(MSM8974_COMMON_PATH)/gps/gps.conf:$(TARGET_COPY_OUT_SYSTEM)/etc/gps.conf \
+    $(LOCAL_PATH)/gps/gps.conf:$(TARGET_COPY_OUT_SYSTEM)/etc/gps.conf \
     $(MSM8974_COMMON_PATH)/gps/izat.conf:$(TARGET_COPY_OUT_SYSTEM)/etc/izat.conf \
     $(MSM8974_COMMON_PATH)/gps/sap.conf:$(TARGET_COPY_OUT_SYSTEM)/etc/sap.conf
 

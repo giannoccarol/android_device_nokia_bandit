@@ -170,9 +170,10 @@ service rmt_storage /system/vendor/bin/rmt_storage
     user root
     group system wakelock
 
-# Bring-up: adsprpcd and loc_launcher exit right away on the 1520 for now
-# and init restarts them in a loop on the only core. They are disabled
-# until FastRPC and the location stack work ("start <name>" to debug).
+# Bring-up: adsprpcd exits right away on the 1520 for now and init would
+# restart it in a loop; it stays disabled until FastRPC works.
+# loc_launcher only starts the izat daemons, which izat.conf all disables:
+# GPS goes through vendor.gnss_service and does not need it.
 
 service rfs_access /system/vendor/bin/rfs_access
     class core

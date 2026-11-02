@@ -8,4 +8,8 @@ LOCAL_PATH := $(call my-dir)
 
 ifeq ($(TARGET_DEVICE),bandit)
 include $(call all-makefiles-under,$(LOCAL_PATH))
+
+# Open source location HAL of msm8974-common (gps.msm8974, libloc_eng,
+# libloc_core, libgps.utils): its own Android.mk only builds for Oppo devices.
+include device/oppo/msm8974-common/gps/Android.mk
 endif
